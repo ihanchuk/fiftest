@@ -1,35 +1,46 @@
 import React from "react";
-import useForm from "../../hooks/form/use-from";
-
+import useForm from "../../hooks/form/use-form";
+import { POSITIVE_INTEGER, ID_TEXT } from "../../utils/forms";
+import { TextInputField } from "../../common/ui/forms/input";
+import { ErrorPlaceholder } from "../../common/ui/forms/error-placehlder";
+import { SelectField } from "../../common/ui/forms/select";
 
 export const AddGameForm = () => {
   const emptyControlValue = { value: "", error: "" };
   const stateSchema = {
-    fname: { ...emptyControlValue },
-    lname: { ...emptyControlValue },
-    tags: { ...emptyControlValue }
+    score_one: { ...emptyControlValue },
+    score_two: { ...emptyControlValue },
+    team_one_name: { ...emptyControlValue },
+    team_two_name: { ...emptyControlValue }
   };
 
   const validationStateSchema = {
-    fname: {
+    score_one: {
       required: true,
       validator: {
-        regEx: /^[a-zA-Z]+$/,
-        error: "Invalid first name format."
+        regEx: POSITIVE_INTEGER,
+        error: "Invalid first team score. Score should be positive number."
       }
     },
-    lname: {
+    score_two: {
       required: true,
       validator: {
-        regEx: /^[a-zA-Z]+$/,
-        error: "Invalid last name format."
+        regEx: POSITIVE_INTEGER,
+        error: "Invalid second team score. Score should be positive number."
       }
     },
-    tags: {
-      required: true,
+    team_one_name: {
+      required: false,
       validator: {
-        regEx: /^(,?\w{3,})+$/,
-        error: "Invalid tag format."
+        regEx: ID_TEXT,
+        error: "Invalid second team score. Score should be positive number."
+      }
+    },
+    team_two_name: {
+      required: false,
+      validator: {
+        regEx: ID_TEXT,
+        error: "Invalid second team score. Score should be positive number."
       }
     }
   };
@@ -38,59 +49,69 @@ export const AddGameForm = () => {
     alert(JSON.stringify(state, null, 2));
   };
 
-  const { state, handleOnChange, handleOnSubmit, disable } = useForm(
-    stateSchema,
-    validationStateSchema,
-    onSubmitForm
-  );
-
-  const errorStyle = {
-    color: "red",
-    fontSize: "13px"
-  };
+  const {
+    state,
+    handleOnChange,
+    handleOnSubmit,
+    disable,
+    patchFieldValue
+  } = useForm(stateSchema, validationStateSchema, onSubmitForm);
 
   return (
     <div>
       <form onSubmit={handleOnSubmit}>
         <div>
-          <label htmlFor="fname">
-            First name:
-            <input
-              type="text"
-              name="fname"
-              value={state.fname.value}
+          <label htmlFor="lname">
+            Score one:
+            <TextInputField
+              name="score_one"
+              value={state.score_one.value}
               onChange={handleOnChange}
+              hasError={state.score_one.error}
             />
           </label>
-          {state.fname.error && <p style={errorStyle}>{state.fname.error}</p>}
+          <ErrorPlaceholder error={state.score_one.error} />
         </div>
-
         <div>
           <label htmlFor="lname">
-            Last name:
-            <input
-              type="text"
-              name="lname"
-              value={state.lname.value}
+            Score one:
+            <TextInputField
+              name="score_two"
+              value={state.score_two.value}
               onChange={handleOnChange}
+              hasError={state.score_two.error}
             />
           </label>
-          {state.lname.error && <p style={errorStyle}>{state.lname.error}</p>}
+          <ErrorPlaceholder error={state.score_two.error} />
         </div>
-
         <div>
-          <label htmlFor="tags">
-            Tags:
-            <input
-              type="text"
-              name="tags"
-              value={state.tags.value}
+          <label htmlFor="lname">
+            Select team one
+            <SelectField
+              options={[
+                { value: 1, title: "Real" },
+                { value: 2, title: "Barcelona" }
+              ]}
+              name="team_one_name"
+              setFieldValue={patchFieldValue}
               onChange={handleOnChange}
             />
           </label>
-          {state.tags.error && <p style={errorStyle}>{state.tags.error}</p>}
         </div>
-
+        <div>
+          <label>
+            Select team 2
+            <SelectField
+              options={[
+                { value: 1, title: "Madrid" },
+                { value: 2, title: "Juventus" }
+              ]}
+              name="team_two_name"
+              setFieldValue={patchFieldValue}
+              onChange={handleOnChange}
+            />
+          </label>
+        </div>
         <input type="submit" name="submit" disabled={disable} />
       </form>
     </div>

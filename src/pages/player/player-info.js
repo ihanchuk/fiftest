@@ -9,6 +9,7 @@ export const PlayerInfo = ({ info }) => {
       <Col size="w-100">
         <h2>Player name:: {player.name} </h2>
         <hr />
+        
       </Col>
     </Row>
   );

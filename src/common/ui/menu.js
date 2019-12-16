@@ -6,9 +6,8 @@ export const TopMenu  =() => {
     <nav>
           <ul>
             <MenuLink url= '/' title='Home' /> 
-            <MenuLink url= '/player/123' title='Player 123' /> 
             <MenuLink url= '/teams' title='Teams' /> 
-            <MenuLink url= '/team' title='Team' /> 
+            <MenuLink url= '/games/add' title='Add new Game' /> 
           </ul>
         </nav>
     )

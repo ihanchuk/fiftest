@@ -25,7 +25,7 @@ export const Layout = () => {
           <Route path="/team/:teamId" exact>
             <Team />
           </Route>
-          <Route path="/game/add" exact>
+          <Route path="/games/add" exact>
             <AddGame />
           </Route>
           <Route path="/player/:playerName" exact>
