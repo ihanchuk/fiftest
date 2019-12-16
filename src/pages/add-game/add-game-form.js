@@ -1,53 +1,33 @@
-import React from "react";
+import React,{useState} from "react";
 import useForm from "../../hooks/form/use-form";
-import { POSITIVE_INTEGER, ID_TEXT } from "../../utils/forms";
 import { TextInputField } from "../../common/ui/forms/input";
 import { ErrorPlaceholder } from "../../common/ui/forms/error-placehlder";
 import { SelectField } from "../../common/ui/forms/select";
+import {
+  addGameStateSchema,
+  validationAddGameStateSchema
+} from "./form-config/validation.config";
+import { allTeamsMetaData } from "../../utils/teams/all-tems-dis";
+import { gameDataParser } from "./parsers/submit-game.parser";
+import { UseSetData } from "../../hooks/api/set-data";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
-export const AddGameForm = () => {
-  const emptyControlValue = { value: "", error: "" };
-  const stateSchema = {
-    score_one: { ...emptyControlValue },
-    score_two: { ...emptyControlValue },
-    team_one_name: { ...emptyControlValue },
-    team_two_name: { ...emptyControlValue }
-  };
-
-  const validationStateSchema = {
-    score_one: {
-      required: true,
-      validator: {
-        regEx: POSITIVE_INTEGER,
-        error: "Invalid first team score. Score should be positive number."
-      }
-    },
-    score_two: {
-      required: true,
-      validator: {
-        regEx: POSITIVE_INTEGER,
-        error: "Invalid second team score. Score should be positive number."
-      }
-    },
-    team_one_name: {
-      required: false,
-      validator: {
-        regEx: ID_TEXT,
-        error: "Invalid second team score. Score should be positive number."
-      }
-    },
-    team_two_name: {
-      required: false,
-      validator: {
-        regEx: ID_TEXT,
-        error: "Invalid second team score. Score should be positive number."
-      }
-    }
-  };
-
+export const AddGameForm = ({ teams }) => {
   const onSubmitForm = state => {
-    alert(JSON.stringify(state, null, 2));
+    const fieldsToread = [
+      "team_one_goals",
+      "team_two_goals",
+      "team_one_id",
+      "team_two_id"
+    ];
+    const dataForApiRequest = gameDataParser(state, fieldsToread);
+    sendRequest("games/new", dataForApiRequest);
   };
+
+  const updateTime = (time) => {
+    patchFieldValue('date', time);
+  }
 
   const {
     state,
@@ -55,44 +35,46 @@ export const AddGameForm = () => {
     handleOnSubmit,
     disable,
     patchFieldValue
-  } = useForm(stateSchema, validationStateSchema, onSubmitForm);
+  } = useForm(addGameStateSchema, validationAddGameStateSchema, onSubmitForm);
 
+  const [isSending, error, response, sendRequest] = UseSetData();
+
+  if (!teams) return null;
   return (
     <div>
+      {JSON.stringify(error)}
+      {JSON.stringify(response)}
       <form onSubmit={handleOnSubmit}>
         <div>
           <label htmlFor="lname">
-            Score one:
+            <span>Score team #1: </span>
             <TextInputField
-              name="score_one"
-              value={state.score_one.value}
+              name="team_one_goals"
+              value={state.team_one_goals.value}
               onChange={handleOnChange}
-              hasError={state.score_one.error}
+              hasError={state.team_one_goals.error}
             />
           </label>
-          <ErrorPlaceholder error={state.score_one.error} />
+          <ErrorPlaceholder error={state.team_one_goals.error} />
         </div>
         <div>
           <label htmlFor="lname">
-            Score one:
+          <span>Score team #2: </span>
             <TextInputField
-              name="score_two"
-              value={state.score_two.value}
+              name="team_two_goals"
+              value={state.team_two_goals.value}
               onChange={handleOnChange}
-              hasError={state.score_two.error}
+              hasError={state.team_two_goals.error}
             />
           </label>
-          <ErrorPlaceholder error={state.score_two.error} />
+          <ErrorPlaceholder error={state.team_two_goals.error} />
         </div>
         <div>
           <label htmlFor="lname">
-            Select team one
+          <span>Select team #1 </span>
             <SelectField
-              options={[
-                { value: 1, title: "Real" },
-                { value: 2, title: "Barcelona" }
-              ]}
-              name="team_one_name"
+              options={allTeamsMetaData(teams)}
+              name="team_one_id"
               setFieldValue={patchFieldValue}
               onChange={handleOnChange}
             />
@@ -100,19 +82,22 @@ export const AddGameForm = () => {
         </div>
         <div>
           <label>
-            Select team 2
+          <span>Select team #2 </span>
             <SelectField
-              options={[
-                { value: 1, title: "Madrid" },
-                { value: 2, title: "Juventus" }
-              ]}
-              name="team_two_name"
+              options={allTeamsMetaData(teams)}
+              name="team_two_id"
               setFieldValue={patchFieldValue}
               onChange={handleOnChange}
             />
           </label>
         </div>
-        <input type="submit" name="submit" disabled={disable} />
+        <div>
+            <label>
+                select time: 
+                <DatePicker selected={new Date()} onChange={updateTime} />
+            </label>
+        </div>
+        <input type="submit" name="submit" disabled={disable || isSending} />
       </form>
     </div>
   );

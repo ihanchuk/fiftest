@@ -1,14 +1,17 @@
-export const apiInitProcessor = (meta, idNickName) => {
-    const base = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        }
+export const apiInitProcessor = (meta, idNickName, data) => {
+  let body;
+  let result;
+  const base = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
     }
-    const body = idNickName ? {[idNickName]: meta.id} : meta
-    const result = {
-        ...base,
-        body: JSON.stringify(body)
-    }
-    return result
-}
+  };
+  if (!data) {
+    body = idNickName ? { [idNickName]: meta.id } : meta;
+  } else {
+    body = data;
+  }
+  result = { ...base, body: JSON.stringify(body) };
+  return result;
+};

@@ -8,7 +8,7 @@ export const AddGame = props => {
   return (
     <Page>
       <h1>Add game:</h1>
-      <AddGameForm />
+      {teams && teams.length && <AddGameForm teams={teams} />}
     </Page>
   );
 };

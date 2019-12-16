@@ -25,7 +25,6 @@ export const useForm = (stateSchema, validationSchema = {}, callback) => {
       }
       return result
     });
-    console.log('Error - ', hasErrorInState)
     return hasErrorInState;
   }, [state, validationSchema]); // eslint-disable-line
 
@@ -35,9 +34,6 @@ export const useForm = (stateSchema, validationSchema = {}, callback) => {
 
       const name = event.target.name;
       const value = event.target.value;
-
-      console.log(`name: ${name} value: ${value}`)
-      console.log(state)
 
       let error = "";
       if (validationSchema[name].required) {
@@ -60,7 +56,7 @@ export const useForm = (stateSchema, validationSchema = {}, callback) => {
         [name]: { value, error }
       }));
     },
-    [state, validationSchema]
+    [validationSchema]
   );
 
   const patchFieldValue = (name, value) => {
