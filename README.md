@@ -12,4 +12,9 @@ No aditional set required/
 
 I am a litle bit confused with this route... I tried evrything - but it always fails with 404!
 
-## Next steps
+## What else whould i do if this was Prod level application:
+
+* Enable TS support
+* Split components even more
+* Enbled RXJS to support complex async calls
+
