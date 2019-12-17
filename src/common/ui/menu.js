@@ -12,16 +12,9 @@ export const TopMenu = () => {
         <ul id="menu">
           <MenuLink url="/" title="Home" />
           <MenuLink url="/teams" title="Teams" />
-          <MenuLink url="/games/add" title="Add new Game" />
+          <MenuLink url="/games/add" title="New Game" />
         </ul>
       </div>
     </nav>
-    // <nav>
-    //       <ul>
-    //         <MenuLink url= '/' title='Home' />
-    //         <MenuLink url= '/teams' title='Teams' />
-    //         <MenuLink url= '/games/add' title='Add new Game' />
-    //       </ul>
-    //     </nav>
   );
 };

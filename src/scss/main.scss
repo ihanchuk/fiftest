@@ -1,3 +1,30 @@
-@import './ui/ui';
 @import "node_modules/bootstrap/scss/bootstrap";
+@import './vars.scss';
+@import './ui/ui';
+@import './containers/blocks.scss';
+@import './buttons/action-buttons.scss';
+@import './fonts/general-fonts';
+@import './lists/lists.scss';
+
+
+body {
+    position:relative;
+    background: #deeef5;
+}
+body::after{
+    //background:red url('https://p7.hiclipart.com/preview/452/710/544/football-figures.jpg');
+    background: url('./images/fon.png');
+    background-repeat: no-repeat;
+    background-position: -10% right;
+    opacity: 0.05;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    height:120vh;
+    width:99%;
+    z-index: -1;  
+    content: "";
+}
 

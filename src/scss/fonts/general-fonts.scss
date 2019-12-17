@@ -1,0 +1,21 @@
+div.container#text-block{
+  h1.main {
+    font-size: 6.4rem;
+    font-weight: bold;
+    color:black;
+    line-height: 5rem;
+    clear: right;
+    color:$h-color-main;
+    margin-bottom:$h1-margin;
+    padding-bottom:1rem;
+    border-bottom:5px solid white;
+
+    span{
+        display:block;
+        color:$h-color-secondary;
+        font-size:3rem;
+        font-weight:normal;
+        padding-left:1rem;
+    }
+  }
+}

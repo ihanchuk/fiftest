@@ -13,10 +13,11 @@ export const Player = (props) => {
   useData("teams/players", playerName, "name");
 
     return <Page>
-       {
+      <h1 class="main">Player Profile<span>Games and etc</span></h1>
+        {
          <div>
-          <PlayerInfo info={player} />
-          <PlayerHistory info={player} />
+          <PlayerInfo info={player} teams={teams} />
+          <PlayerHistory info={player} teams={teams} />
          </div>
        }
     </Page>;

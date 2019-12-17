@@ -16,6 +16,7 @@ export const Team = () => {
   const { teams } = useContext(TeamsContext);
   return (
     <Page>
+      <h1 className="main">Team page <span>All games, players and etc</span></h1>
       {!teamLoading ? (
         <TeamInfo teamResponse={teamResponse} />
       ) : (

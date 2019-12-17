@@ -4,6 +4,7 @@ import { Teams } from "../../pages/teams";
 import { Team } from "../../pages/team";
 import { Player } from "../../pages/player";
 import { Home } from "../../pages/home";
+import { NotFound } from "../../pages/not-found";
 import { AddGame } from "../../pages/add-game";
 import { TopMenu } from "../ui/menu";
 import { TeamsContext } from "../../context";
@@ -34,7 +35,9 @@ export const Layout = () => {
           <Route path="/" exact>
             <Home />
           </Route>
-          <Route component={ () =><div> 404</div>} />
+          <Route>
+            <NotFound />
+          </Route>
         </Switch>
       </div>
     </Router>
