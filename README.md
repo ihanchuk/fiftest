@@ -1,7 +1,7 @@
 
 ## To run project:
 
-
+### `npm i`
 ### `yarn start`
 
 Runs the app in the development mode.<br />
