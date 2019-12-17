@@ -1,7 +1,6 @@
 import React from "react";
 import { Row, Col } from "../../common/ui";
 import { Preloader } from "../../common/ui/preloader";
-import { Link } from "react-router-dom";
 import { toCurrency } from "../../utils/currency/currency";
 
 export const PlayerInfo = ({ info, teams }) => {
@@ -19,7 +18,7 @@ export const PlayerInfo = ({ info, teams }) => {
           </li>
           <li>
             Nationality: <span>{player.nationality}</span>
-            &nbsp; <img src= {player.flag_url} width="20" />
+            &nbsp; <img src= {player.flag_url} alt={player.nationality} width="20" />
           </li>
           <li>
             Position: <span>{player.position}</span>

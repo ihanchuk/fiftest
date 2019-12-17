@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React from "react";
 import useForm from "../../hooks/form/use-form";
 import { TextInputField } from "../../common/ui/forms/input";
 import { ErrorPlaceholder } from "../../common/ui/forms/error-placehlder";
@@ -42,8 +42,7 @@ export const AddGameForm = ({ teams }) => {
   if (!teams) return null;
   return (
     <div>
-      {JSON.stringify(error)}
-      {JSON.stringify(response)}
+      <ErrorPlaceholder  error={error}/>
       <form onSubmit={handleOnSubmit}>
         <div>
           <label htmlFor="lname">

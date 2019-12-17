@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Teams } from "../../pages/teams";
 import { Team } from "../../pages/team";
 import { Player } from "../../pages/player";
-import { Home } from "../../pages/home";
 import { NotFound } from "../../pages/not-found";
 import { AddGame } from "../../pages/add-game";
 import { TopMenu } from "../ui/menu";

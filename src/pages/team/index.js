@@ -7,6 +7,7 @@ import { AllPlayersOfTeam } from "./partials/all-players";
 import { TeamInfo } from "./partials/team-info";
 import { TeamsContext } from "../../context";
 import { AllGamesOfTeam } from "./partials/team-games";
+import { ErrorPlaceholder } from "../../common/ui/forms/error-placehlder";
 
 export const Team = () => {
   const { teamId } = useParams();
@@ -17,20 +18,22 @@ export const Team = () => {
   return (
     <Page>
       <h1 className="main">Team page <span>All games, players and etc</span></h1>
-      {!teamLoading ? (
+      <ErrorPlaceholder error={gamesError} />
+      <ErrorPlaceholder error={playersError} />
+      <ErrorPlaceholder error={error} />
+      {!teamLoading ? 
         <TeamInfo teamResponse={teamResponse} />
-      ) : (
+       : 
         <Preloader loading="Team info" />
-      )}
-      {!playersLoading ? (
+      }
+      {!playersLoading ? 
         <AllPlayersOfTeam playersResponse={playersResponse} />
-      ) : (
+       : 
         <Preloader loading="Players" />
-      )}
+      }
       {
         teams && gamesResponse.length > 0 && <AllGamesOfTeam teamGames={gamesResponse} teams= {teams}/> 
       }
-      
     </Page>
   );
 };
