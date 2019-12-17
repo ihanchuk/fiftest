@@ -33,7 +33,7 @@ export const Layout = () => {
             <Player />
           </Route>
           <Route path="/" exact>
-            <Home />
+            <Teams />
           </Route>
           <Route>
             <NotFound />

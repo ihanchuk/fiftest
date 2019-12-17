@@ -9,6 +9,7 @@ import { TeamsContext } from "../../context";
 
 export const Teams = () => {
   const { teams } = useContext(TeamsContext);
+  if(! teams.length ) return <Preloader loading="Loading teams" />
   const teamsLoaded = (
     <Page>
       <h1 className="main">Teams page <span>All availbale teams</span></h1>
